@@ -25,16 +25,19 @@ public class Perceptron {
 		}
 	}
 
-	public void calculateError(int i, int t) {
+	public void calculateError(int t) {
 		e = t - functionOfActivation();
 		System.out.println("e = " + e);
 	}
 
-	public void setNewWagesAndShift(int i, int x, int y)
+	public void setNewWagesAndShift(int x, int y)
 	{
 		w1 = w1 + e * x;
 		w2 = w2 + e * y;
 		b = b + e;
+		System.out.println("w1 nowe:" + w1);
+		System.out.println("w2 nowe:" + w2);
+		System.out.println("b nowe:" + b);
 	}
 	
 	public void checkIfCorrect(int t)
@@ -47,12 +50,13 @@ public class Perceptron {
 	
 	public void execute(int[][] p, int M, int[] t) {
 		for (int i = 0; i < M; i++) {
+			System.out.println("X: " + p[i][0] + " Y: " + p[i][1]);
 			calculateSignalValue(p[i][0], p[i][1]);
 			checkIfCorrect(t[i]);
-			calculateError(i,t[i]);
+			calculateError(t[i]);
 			if (e!=0)
 			{
-				setNewWagesAndShift(i,p[i][0], p[i][1]);
+				setNewWagesAndShift(p[i][0], p[i][1]);
 			}
 		}
 	}
